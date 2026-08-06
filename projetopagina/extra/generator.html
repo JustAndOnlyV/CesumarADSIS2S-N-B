@@ -1,6 +1,6 @@
 <html>
    <head>
-    <title>Title</title>
+    <title>gerador</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
@@ -15,25 +15,26 @@
   </head>
   <body>
     <header>
-      <h1>post maker</h1>
+      <h1>gerador de post</h1>
     </header>
     <section>
       <h4>lazy made</h4>
       <br>
       <div class="center">
-        <label>title</label>
+        <label>titulo</label>
         <input type="text" id="title">
         <br>
-        <label>publisher</label>
+        <label>@ do usuario (sem o @)</label>
         <input type="text" id="publisher">
         <br>
-        <label>image link</label>
+        <label>link da imagem do inicio</label>
         <br>
         <input type="text" id="img_src">
         <br>
-        <label>contents</label>
+        <label>conteudo</label>
         <textarea style="width:250px;height:300px;" id="contents"></textarea>
-        <button id="button">generate</button>
+        <button id="button">gerar (vai copiar pra área de transferência)</button>
+        <button id="button-download">baixar</button>
       </div>
     </section>
     <script>
@@ -73,6 +74,47 @@
         }
         
         navigator.clipboard.writeText(JSON.stringify(doc,undefined,4))
+        alert("copiado para a área de transferencia")
+        
+      }))
+       document.getElementById("button-download").addEventListener("click",(async()=>{
+        let doc = {
+          title: document.getElementById("title").value,
+          publisher: {
+            username: document.getElementById("publisher").value,
+            name: document.getElementById("publisher").value,
+            pfp: "https://i.pinimg.com/originals/f6/d5/b4/f6d5b458bf7aa0276c81a666c916de18.jpg?nii=t"
+          },
+          date: (new Date()).toISOString()
+            .replace("T"," ")
+            .replace("Z"," GMT"+(((new Date()).getTimezoneOffset()/60)*-1))
+            .replace(/[.]\d\d\d/gm,""),
+          contents: document.getElementById("contents").value.split("\n"),
+          image: document.getElementById("img_src").value
+        }
+        
+        try {
+            let __json = await fetch("./users.json")
+            if(__json.ok){
+                __json = await __json.json()
+            }
+            
+            for(let o of __json.users){
+                if(o.username == doc.publisher.username){
+                    doc.publisher.name = o.display_name
+                    doc.publisher.pfp = o.avatar
+                }
+            }
+            
+        } catch(e) {
+            alert("An error occured: "+e.message)
+        }
+        let a = document.createElement("a")
+        let blob = new Blob([JSON.stringify(doc,undefined,4)],{type:"application/json"})
+        a.href = URL.createObjectURL(blob)
+        a.download = "post-"+(new Date().valueOf())+".json"
+        a.click();
+        a.remove()
         
       }))
     </script>
