@@ -1,0 +1,23 @@
+{
+    "title": "Título da postagem",
+    "publisher": {
+        "username": "vitorbiliato",
+        "name": "Vitor",
+        "pfp": "https://avatars.githubusercontent.com/u/313833525"
+    },
+    "date": "2026-08-06 12:53:10 GMT-3",
+    "contents": [
+        "Este é um post de exemplo",
+        "",
+        "As publicações podem usar sintaxe HTML, tipo <pre style=\"display:inline;color:#bbbebf;background-color:#121314;font-family:'Droid Sans Mono',monospace;",
+        "font-size:14px;line-height:19px;white-space:pre;padding:4px;border:#71747A 2px solid;border-radius:15px;\"><span style=\"color:#808080;\">&lt;</span><span style=\"color:#7ee787;\">p</span> <span style=\"color: #9cdcfe;\">class</span>=<span style=\"color: #a5d6ff;\">\"paragraph\"</span> <span style=\"color: #808080;\">&gt;</span>Olá!<span style=\"color: #808080;\">&lt;/</span><span style=\"color: #7ee787;\">p</span><span style=\"color: #808080;\">&gt;</span></pre>, assim como também é permitido **Markdown**",
+        "",
+        "| Coluna 1 | Coluna 2 |",
+        "| -------- | -------- | ",
+        "| Valor A1 | Valor A2 |",
+        "| Valor B1 | Valor B2 |",
+        "",
+        "imagens também são permitidas, desde que tenham link"
+    ],
+    "image": ""
+}
