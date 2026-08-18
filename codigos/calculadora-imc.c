@@ -45,15 +45,23 @@ int main(){
     scanf("%f",&peso);
     
     printf("\x1b[0m\n\x1b[36mColoque sua idade (exemplo: 18): \x1b[33m");
-    scanf("%f",&idade);
+    scanf("%d",&idade);
 
     imc = peso / (altura * altura);
 
 
     if(imc <= imc_minimo){
-        resultado_obtido = tabela_adulto[0];
+        if(idade >= 60){
+            resultado_obtido = tabela_idoso[0];
+        } else {
+            resultado_obtido = tabela_adulto[0];
+        };
     } else if(imc >= imc_maximo){
-        resultado_obtido = tabela_adulto[tabela_tamanho-1];
+        if(idade >= 60){
+            resultado_obtido = tabela_idoso[tabela_tamanho-1];
+        } else {
+            resultado_obtido = tabela_adulto[tabela_tamanho-1];
+        };
     } else {
         for(int i = 0; i < tabela_tamanho; i++){
             if(idade >= 60){
@@ -68,7 +76,12 @@ int main(){
         };
     };
 
-    printf("\x1b[0m\n\n\x1b[36mSeu IMC: \x1b[33m%.2f\x1b[36m, \x1b[32m%s\x1b[36m.\x1b[0m\n",imc,resultado_obtido.resposta);
+    if(idade >= 18){
+        printf("\x1b[0m\n\n\x1b[36mSeu IMC: \x1b[33m%.2f\x1b[36m, \x1b[32m%s\x1b[36m.\x1b[0m\n",imc,resultado_obtido.resposta);
+    } else {
+        printf("\x1b[0m\n\n\x1b[36mSeu IMC: \x1b[33m%.2f\x1b[36m.\x1b[0m\n",imc);
+        printf("\x1b[33mNota: esse resultado nao inclui as curvas de percentual para jovens e criancas. Para um resultado mais coerente, visite uma pagina de uma calculadora IMC profissional.\x1b[0m\n");
+    }
 
     return 0;
 }
